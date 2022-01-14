@@ -1,6 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+/**
+English auction for NFT.
+
+Auction
+1. Seller of NFT deploys this contract.
+2. Auction lasts for 7 days.
+3. Participants can bid by depositing ETH greater than the current highest bidder.
+4. All bidders except the highest bidder can withdraw their bid
+
+After the auction
+1. Highest bidder becomes the new owner of NFT.
+3. The seller receives the highest bid of ETH.
+*/
+
 interface IERC721 {
     function safeTransferFrom(
         address from,
