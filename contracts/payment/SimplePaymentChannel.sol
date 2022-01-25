@@ -38,14 +38,22 @@ contract SimplePaymentChannel {
         selfdestruct(sender);
     }
 
-    function isValidSignature(uint256 amount, bytes memory signature) internal view returns (bool) {
+    function isValidSignature(uint256 amount, bytes memory signature) 
+        internal 
+        view 
+        returns (bool) 
+    {
         bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount)));
 
         // check that the signature is from the payment sender
         return recoverSigner(message, signature) == sender;
     }
 
-    function splitSignature(bytes memory sig) internal pure returns (uint8 v, bytes32 r, bytes32 s) {
+    function splitSignature(bytes memory sig) 
+        internal 
+        pure 
+        returns (uint8 v, bytes32 r, bytes32 s) 
+    {
         require(sig.length == 65);
 
         assembly {
@@ -60,7 +68,11 @@ contract SimplePaymentChannel {
         return (v, r, s);
     }
 
-    function recoverSigner(bytes32 message, bytes memory sig) internal pure returns (address) {
+    function recoverSigner(bytes32 message, bytes memory sig) 
+        internal 
+        pure 
+        returns (address) 
+    {
         (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
 
         return ecrecover(message, v, r, s);
